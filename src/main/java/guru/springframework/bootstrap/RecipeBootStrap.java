@@ -112,6 +112,9 @@ public class RecipeBootStrap implements ApplicationListener<ContextRefreshedEven
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
+        guacRecipe.setUrl("http://www.simplerecipes.com/recipes/perfect_guacomole/");
+        guacRecipe.setServings(4);
+        guacRecipe.setSource("Simple Recipes");
 
         //add to return list
         recipes.add(guacRecipe);

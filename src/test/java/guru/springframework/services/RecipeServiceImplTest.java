@@ -40,7 +40,8 @@ public class RecipeServiceImplTest {
         Set<Recipe> recipeSet = recipeService.getRecipes();
 
         assertEquals(recipeSet.size(),1);
-        verify(recipeRepository,  times(3)).findAll();
+        //verify(recipeRepository,  times(3)).findAll();
+        verify(recipeRepository,  times(1)).findAll();
 
     }
 }

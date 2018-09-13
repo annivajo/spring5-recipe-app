@@ -41,7 +41,6 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findById(id).orElseThrow(()->new RuntimeException("Recipe Not Found!"));
     }
 
-    @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);

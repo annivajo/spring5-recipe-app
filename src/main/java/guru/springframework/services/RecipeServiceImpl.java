@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,7 +37,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        return recipeRepository.findById(id).orElseThrow(()->new RuntimeException("Recipe Not Found!"));
+        return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
     }
 
     @Transactional
@@ -48,5 +47,11 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
+    }
+
+    @Override
+    @Transactional
+    public RecipeCommand findCommandById(Long l) {
+        return recipeToRecipeCommand.convert(findById(l));
     }
 }

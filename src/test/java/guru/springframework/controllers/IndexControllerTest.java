@@ -49,7 +49,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void getIndexPage() {
+    public void getIndexPage() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 

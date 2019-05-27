@@ -4,7 +4,11 @@ import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -16,10 +20,22 @@ public class IndexController {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping({"","/","index"})
+    @GetMapping("index")
     public String getIndexPage(Model model){
         log.debug("Getting index page");
         model.addAttribute("recipes", recipeService.getRecipes());
         return "index";
     }
+
+    @RequestMapping({"", "/"})
+    public String getLoginPage(Model model) {
+        log.debug("Getting login page");
+
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("title", "LOG IN AREA");
+        model.addAllAttributes(attributes);
+
+        return "login";
+    }
+
 }

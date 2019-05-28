@@ -30,7 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/recipe/**")
                 .permitAll()
                 .anyRequest()
-                .authenticated();
+                .permitAll();
+
+        //.authenticated();
         http
                 .formLogin()
                 .loginPage("/index")

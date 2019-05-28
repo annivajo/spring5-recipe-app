@@ -60,7 +60,8 @@ public class IngredientController {
 
 
     @PostMapping("recipe/{recipeId}/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand command) {
+    public String saveOrUpdate(@ModelAttribute IngredientCommand command,
+                               @PathVariable Long recipeId) {
 
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
 

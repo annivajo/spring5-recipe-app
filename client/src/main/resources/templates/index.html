@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Recipe Home!</title>
@@ -53,6 +56,14 @@
                 </div>
 
             </div>
+
+            <div sec:authorize="isAuthenticated()">
+                Authenticated as <span sec:authentication="name"></span>
+                <p>
+                    Has Roles: <span sec:authentication="principal.authorities"></span>
+                </p>
+            </div>
+
         </div>
     </div>
 </div>

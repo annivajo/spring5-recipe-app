@@ -1,15 +1,16 @@
 package guru.springframework.security;
 
-
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Override
-   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .ldapAuthentication()
                 .userDnPatterns("uid={0},ou=people")
@@ -19,34 +20,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .passwordCompare()
                 .passwordEncoder(new LdapShaPasswordEncoder())
-                .passwordAttribute("adminpassword");
-    }*/
+                .passwordAttribute("userPassword");
+
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout()
-                .logoutUrl("/logout");
-        //.logoutSuccessUrl("/");
-
-        http
+                .logoutUrl("/logout")
+                .and()
                 .authorizeRequests()
-                .antMatchers("/login", "/admin/**", "/app/login").permitAll()
-                .antMatchers("/assets/**").permitAll()
-                .antMatchers("/recipe/**", "/actuator/**", "/index").fullyAuthenticated()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/actuator/**").hasRole("DEVELOPERS")
+                .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic()
                 .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringAntMatchers(
-                        "/instances",
-                        "/actuator/**"
-                );
+                .csrf();
+        //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 
     }
 }
